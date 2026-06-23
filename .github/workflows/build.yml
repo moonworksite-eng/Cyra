@@ -14,7 +14,7 @@ jobs:
 
       - name: Unzip project
         run: |
-          unzip -o Cyra_App.zip -d extracted
+          unzip -o Cyra_App_v2.zip -d extracted
           INNER=$(find extracted -maxdepth 3 -name "build.gradle" -not -path "*/app/*" | head -1 | xargs dirname)
           echo "Project at: $INNER"
           cp -r "$INNER"/. .
