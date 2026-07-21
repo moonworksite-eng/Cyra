@@ -26,6 +26,20 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Override assets/index.html with latest edited version
+        run: |
+          if [ -f "index.html" ]; then
+            TARGET=$(find app/src/main -maxdepth 3 -type d -name assets | head -1)
+            if [ -n "$TARGET" ]; then
+              cp index.html "$TARGET/index.html"
+              echo "Copied root index.html -> $TARGET/index.html"
+            else
+              echo "WARNING: assets folder not found, skipping override"
+            fi
+          else
+            echo "No root index.html found in repo, using version from zip"
+          fi
+
       - name: Grant gradlew permission
         run: |
           [ -f gradlew ] || gradle wrapper --gradle-version 8.4
